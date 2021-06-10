@@ -1,0 +1,41 @@
+.root {
+  height: 100vh;
+  width: 100%;
+  background-color: #27292c;
+  overflow: hidden;
+
+  .container {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    color: #fff;
+
+    .entry {
+      height: 120px;
+      width: 100%;
+      margin: auto 0;
+      text-align: center;
+
+      .title {
+        font-size: 36px;
+        transition: color 500ms linear;
+
+        &:hover {
+          color: #4c54f4;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .footer {
+      width: 100%;
+      text-align: center;
+
+      .copyright {
+        height: 28px;
+        line-height: 28px;
+      }
+    }
+  }
+}

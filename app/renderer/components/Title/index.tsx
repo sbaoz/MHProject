@@ -1,5 +1,6 @@
 import * as React from 'react';
-import lessStyles from './index.less';
+import './index.less';
+import Pic from '../../../assets/pic01.png';
 
 interface IProps {
     text: string;
@@ -7,9 +8,9 @@ interface IProps {
 }
 
 export default function Title({ text, styles }: IProps) {
-    debugger;
     return (
-        <div style={styles} className={lessStyles.title}>
+        <div style={styles} styleName="title">
+            <img src={Pic} alt=""/>
             {text}
         </div>
     )
