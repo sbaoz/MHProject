@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { shell } from 'electron';
+import { ROUTER_ENTRY } from '@common/constants/router';
+import { isHttpOrHttpsUrl } from '@common/utils/router';
 import './index.less';
 
 export default function Root() {
@@ -26,12 +28,12 @@ export default function Root() {
         console.log('appName = ', appName);
     }, [appName]);
 
-    const onRouterToLink = (type?: string) => {
-        if (type === 'shell') {
+    const onRouterToLink = (router: TSRouter.Item) => {
+        if (isHttpOrHttpsUrl(router.url)) {
             // 通过 shell 模块，打开默认浏览器
-            shell.openExternal('https://www.baidu.com');
+            shell.openExternal(router.url);
         } else {
-            history.push('/home');
+            history.push(router.url);
         }
     }
 
@@ -39,11 +41,15 @@ export default function Root() {
         <div styleName='root'>
             <div styleName='container'>
                 <div styleName='entry'>
-                    <p styleName='title' onClick={() => onRouterToLink()}>
-                        MHProject
-                    </p>
+                    {
+                        ROUTER_ENTRY.map(item => (
+                            <p styleName='title' key={item.key} onClick={() => onRouterToLink(item)}>
+                                {item.text}
+                            </p>
+                        ))
+                    }
                 </div>
-                <div styleName='footer' onClick={() => onRouterToLink('shell')}>
+                <div styleName='footer'>
                     <p styleName='copyright'>Copyright © 2021-{new Date().getFullYear()} All Rights Reserved. Copyright By xiaojz</p>
                 </div>
             </div>

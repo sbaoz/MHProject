@@ -2,11 +2,7 @@
 * electron主入口
 * */
 const path = require('path');
-const { app, BrowserWindow } = require('electron');
-
-function isDev() {
-    return process.env.NODE_ENV === 'development';
-}
+const { app, BrowserWindow, ipcMain } = require('electron');
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -32,5 +28,16 @@ app.whenReady().then(() => {
             createWindow();
         }
     });
+});
+
+function isDev() {
+    return process.env.NODE_ENV === 'development';
+}
+
+const ROOT_PATH = path.join(app.getAppPath(), '../');
+
+// 监听渲染进程发的消息并回复
+ipcMain.on('get-root-path', (event, arg) => {
+    event.reply('reply-root-path', ROOT_PATH);
 });
 
