@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import fileAction from '@common/utils/file';
 import { getAppPath } from '@common/utils/appPath';
-import { Button, Input } from '@common/components/index';
+import { Button, Input, BaseUpload } from '@common/components/index';
 import './index.less';
 
 export default function Finance() {
@@ -38,6 +38,7 @@ export default function Finance() {
                 maxLength={200} // 最多支持的文本长度
                 allowCount={true} // 是否显示底部文本字数
             />
+            <BaseUpload />
         </div>
     )
 }
