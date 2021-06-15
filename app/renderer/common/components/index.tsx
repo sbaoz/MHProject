@@ -1,10 +1,15 @@
 import Button from '@common/components/Button';
-import Input, { Type, SizeType } from '@common/components/Input';
-import BaseUpload from '@common/components/Upload/BaseUpload';
+import Input from '@common/components/Input';
+import ImageUpload from '@common/components/Upload/ImageUpload';
+import { DialogModal, ConfirmModal } from '@common/components/Modal/index';
+import ScrollBox from '@common/components/ScrollBox';
 
 export {
     Button,
     Input,
-    BaseUpload
+    ImageUpload,
+    DialogModal,
+    ConfirmModal,
+    ScrollBox
 }
 

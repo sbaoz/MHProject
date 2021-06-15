@@ -43,6 +43,6 @@
     "app/**/*.ts",
     "app/**/*.tsx",
     "app/**/*.d.ts",
-    "typings.d.ts"
+    "global.d.ts"
   ]
 }

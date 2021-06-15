@@ -11,16 +11,16 @@ export const ROUTER_KEY = {
 }
 
 export const ROUTER_ENTRY: TSRouter.Item[] = [
-    {
-        url: 'https://www.baidu.com',
-        key: 'demo',
-        text: 'demo'
-    },
-    {
-        url: ROUTER.home,
-        key: ROUTER_KEY.home,
-        text: 'Home'
-    },
+    // {
+    //     url: 'https://www.baidu.com',
+    //     key: 'demo',
+    //     text: 'demo'
+    // },
+    // {
+    //     url: ROUTER.home,
+    //     key: ROUTER_KEY.home,
+    //     text: 'Home'
+    // },
     {
         url: ROUTER.finance,
         key: ROUTER_KEY.finance,

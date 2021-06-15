@@ -48,10 +48,10 @@ function Button({ size = 'small', style, width, children, disabled, className, o
                 width: width,
             }}
             className={className}
-            styleName={classnames('es-button', {
-                [`es-button-${size}`]: true,
-                'es-button-disabled': disabled,
-                'es-button-border': border,
+            styleName={classnames('es_button', {
+                [`es_button_${size}`]: true,
+                'es_button_disabled': disabled,
+                'es_button_border': border,
             })}
             onClick={() => {
                 onClick && onClick();

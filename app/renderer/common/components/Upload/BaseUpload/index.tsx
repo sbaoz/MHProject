@@ -29,9 +29,9 @@ function BaseUpload({ style, accept, multiple = false, visible = true, onAfterCl
             multiple={multiple}
             onClick={onAfterClick}
             onChange={onChange}
-            className={classNames('es-input-selector', {
-                'es-input-selector-visible': visible,
-                'es-input-selector-hidden': !visible
+            className={classNames('es_input_selector', {
+                'es_input_selector_visible': visible,
+                'es_input_selector_hidden': !visible
             })}
         />
     )

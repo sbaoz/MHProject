@@ -129,17 +129,17 @@ export default class Input extends React.PureComponent<InputProps, InputState> {
 
     renderBefore = (): ReactNode => {
         const { addonBefore } = this.props;
-        return !!addonBefore && <div styleName="es-input-center">{addonBefore}</div>;
+        return !!addonBefore && <div styleName="es_input_center">{addonBefore}</div>;
     }
 
     renderAfter = (): ReactNode => {
         const { addonAfter } = this.props;
-        return !!addonAfter && <div styleName="es-input-center">{addonAfter}</div>;
+        return !!addonAfter && <div styleName="es_input_center">{addonAfter}</div>;
     }
 
     renderClear = (): ReactNode => {
         const { allowClear } = this.props;
-        return !!allowClear && this.state.text && <i styleName="es-input-clear" onClick={this.onClear} />;
+        return !!allowClear && this.state.text && <i styleName="es_input_clear" onClick={this.onClear} />;
     }
 
     onFocus = (): void => {
@@ -170,7 +170,7 @@ export default class Input extends React.PureComponent<InputProps, InputState> {
         const { placeholder, size = 'normal', maxLength, id, disabled, autoFocus } = this.props;
         return (
             <div
-                styleName={classNames(`es-input-input`, {
+                styleName={classNames(`es_input_input`, {
                     [`${size}`]: true,
                 })}
             >
@@ -193,7 +193,7 @@ export default class Input extends React.PureComponent<InputProps, InputState> {
         const _rows = rows || 3;
         const text = this.state.text;
         return (
-            <div styleName="es-input-textarea" style={{height: 24 * _rows}}>
+            <div styleName="es_input_textarea" style={{height: 24 * _rows}}>
                 <textarea
                     {...{placeholder, maxLength, id, disabled, autoFocus}}
                     rows={_rows}
@@ -206,10 +206,10 @@ export default class Input extends React.PureComponent<InputProps, InputState> {
                 {this.renderClear()}
                 {
                     allowCount && (
-                        <div styleName="es-input-textarea-footer">
+                        <div styleName="es_input_textarea_footer">
                             <span
                                 styleName={classNames({
-                                    'max-length-text': !!maxLength && text && String(text).length >= maxLength,
+                                    'max_length_text': !!maxLength && text && String(text).length >= maxLength,
                                 })}
                             >
                               {String(text).length}
@@ -234,10 +234,10 @@ export default class Input extends React.PureComponent<InputProps, InputState> {
         return (
             <div
                 style={style}
-                styleName={classNames('es-input', {
+                styleName={classNames('es_input', {
                     normal: !bgTransparent,
                     focus: this.state.focus,
-                    'allow-clear': allowClear,
+                    'allow_clear': allowClear,
                 })}
             >
                 {this.renderBefore()}
