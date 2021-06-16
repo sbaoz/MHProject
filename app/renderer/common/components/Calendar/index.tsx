@@ -6,7 +6,7 @@ import './index.less';
 dayjs.locale('zh-cn');
 
 function Calendar() {
-    const curDate = useRef(dayjs());
+    const curDate = useRef(dayjs().date(1));
     const [monthYear, setMonthYear] = useState(curDate.current.format('MMM YYYY'));
 
     const prevMonth = () => {
@@ -67,38 +67,57 @@ function Calendar() {
         return currentMonthDay;
     }
 
-    const renderDay = (): React.ReactNode[] => {
+    const getWeek = () => {
         const backDay = getBackDay();
         const currentMonthDay = getCurrentMonth();
         const forwardDay = getForwardDay();
-        return [...backDay, ...forwardDay, ...currentMonthDay].map((day, index) => {
+        const weekMap = new Map();
+        let key = 0;
+        [...backDay, ...currentMonthDay, ...forwardDay].forEach((day, index) => {
             if (index === 0 || day.day() === 0) {
-                return (
-                    <div styleName='week'>
-
-                    </div>
-                );
+                if (weekMap.size > 0) {
+                    key++;
+                }
+                weekMap.set(key, [day]);
             } else {
-                return (
-                    <div>
-
-                    </div>
-                )
+                weekMap.get(key).push(day);
             }
         });
+        return weekMap;
+    }
+
+    const renderDay = (days: any): React.ReactNode[] => {
+        const resule: React.ReactNode[] = [];
+        days.forEach((day: any, index: number) => {
+
+        })
+        return resule;
+    }
+
+    const renderWeek = (): React.ReactNode[] => {
+        const week = getWeek();
+        const resule: React.ReactNode[] = [];
+        week.forEach((days, key) => {
+            resule.push(
+                <div styleName='week' key={`week-${key}`}>
+                    {
+                        renderDay(days)
+                    }
+                </div>
+            )
+        });
+        return resule;
     }
 
     const renderMonth = () => {
         return (
             <div styleName='month'>
                 {
-                    renderDay()
+                    renderWeek()
                 }
             </div>
         )
     }
-
-
 
     return (
         <div styleName='calendar'>
