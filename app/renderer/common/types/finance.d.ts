@@ -1,12 +1,12 @@
 declare namespace TSFinance {
-    export const enum CONSUM_TYPE {
+    enum CONSUM_TYPE {
         Commodity = '日用品',
         Food = '食品',
         Drink = '饮料',
         Clothing = '服装',
         Electrical = '电器'
     }
-    export const enum FINANC_TYPE {
+    enum FINANC_TYPE {
         Deposit = '存款',
         EquityFund = '股票基金',
         MoneyFund = '货币基金'
@@ -21,11 +21,11 @@ declare namespace TSFinance {
         /**
          * @description 消费日期
          */
-        consumDate: string | number,
+        consumDate: string | number
         /**
          * @description 消费品类
          */
-        consumType: ConsumType,
+        consumType: ConsumType
         /**
          * @description 消费名称
          */

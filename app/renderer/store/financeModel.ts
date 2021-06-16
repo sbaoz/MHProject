@@ -1,4 +1,5 @@
 import { CONSUM_TYPE, FINANC_TYPE } from '@common/constants/finance';
+
 const financeModel: TSRcReduxModel.Props<TSFinance.FinanceRecord> = {
     namespace: 'financeModel',
     openSeamlessImmutable: true,
