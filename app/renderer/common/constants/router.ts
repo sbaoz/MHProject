@@ -24,7 +24,8 @@ export const ROUTER_ENTRY: TSRouter.Item[] = [
     {
         url: ROUTER.finance,
         key: ROUTER_KEY.finance,
-        text: 'Finance'
+        text: 'Finance',
+        name: '财务'
     },
 ]
 

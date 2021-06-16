@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import fileAction from '@common/utils/file';
 import { getAppPath } from '@common/utils/appPath';
-import { ScrollBox } from '@common/components/index';
+import { BaseLayout, Calendar } from '@common/components/index';
 import './index.less';
 
 export default function Finance() {
-    getAppPath().then((rootPath: string) => {
-        // console.log('应用程序的目录路径为: ', rootPath);
-        fileAction.read(`${rootPath}app/renderer/container/finance/index.tsx`).then(data => {
-            // console.log(data);
-        })
-    })
-
-    const HEADER_ACTION_HEIGHT = 92;
-    const height = document.body.clientHeight;
+    const [data, setData] = useState('');
+    useEffect(() => {
+        // getAppPath().then((rootPath: string) => {
+        //     console.log('应用程序的目录路径为: ', rootPath);
+        //     fileAction.read(`${rootPath}app/renderer/container/finance/index.tsx`).then(data => {
+        //         setData(data);
+        //     })
+        // })
+    }, []);
 
     return (
-        <div styleName='container'>
-          <ScrollBox maxHeight={height - HEADER_ACTION_HEIGHT}>
-          </ScrollBox>
-        </div>
+        <BaseLayout>
+            <div styleName='container'>
+                <Calendar />
+                <div>record_area</div>
+            </div>
+        </BaseLayout>
     )
 }

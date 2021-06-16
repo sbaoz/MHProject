@@ -12,5 +12,6 @@ declare namespace TSRouter {
          * @description 文本
          */
         text: string;
+        name: string;
     }
 }

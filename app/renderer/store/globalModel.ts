@@ -2,7 +2,8 @@ const globalModel = {
     namespace: 'globalModel',
     openSeamlessImmutable: true,
     state: {
-        appName: 'MHProject'
+        appName: 'MHProject',
+        currentPage: 'root'
     }
 }
 
