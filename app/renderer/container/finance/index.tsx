@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import fileAction from '@common/utils/file';
 import { getAppPath } from '@common/utils/appPath';
-import { BaseLayout, Calendar, RecordArea, Button, DialogModal } from '@common/components/index';
+import { BaseLayout, Calendar, Button, DialogModal } from '@common/components/index';
 import Messager, { MESSAGE_EVENT_NAME_MAPS } from '@common/messager';
+import RecordArea from '@src/container/finance/components/RecordArea';
+import OptionArea from "@src/container/finance/components/OptionArea";
 import './index.less';
 
 export default function Finance() {
@@ -45,19 +47,15 @@ export default function Finance() {
                 <div styleName='container'>
                     <div styleName='option-area'>
                         <Calendar style={{ margin: 0 }} callback={onClickDay}/>
-                        <div onClick={() => onSendMessage('ConsumptionRecordOptionArea')}>
-                            <p>ConsumptionRecordOptionArea</p>
-                            <Button onClick={(e: React.MouseEvent) => {
-                                console.log('Button Click')
-                            }}>send</Button>
-                        </div>
-                        <div onClick={() => onSendMessage('FinancialRecordOptionArea')}>
-                            <p>FinancialRecordOptionArea</p>
-                            <Button onClick={(e: React.MouseEvent) => {
-                                e.stopPropagation() // 阻止冒泡
-                                console.log('Button Click')
-                            }}>send</Button>
-                        </div>
+                        <OptionArea />
+                        <OptionArea />
+                        {/*<div onClick={() => onSendMessage('FinancialRecordOptionArea')}>*/}
+                        {/*    <p>FinancialRecordOptionArea</p>*/}
+                        {/*    <Button onClick={(e: React.MouseEvent) => {*/}
+                        {/*        e.stopPropagation() // 阻止冒泡*/}
+                        {/*        console.log('Button Click')*/}
+                        {/*    }}>send</Button>*/}
+                        {/*</div>*/}
                     </div>
                     <RecordArea />
                 </div>

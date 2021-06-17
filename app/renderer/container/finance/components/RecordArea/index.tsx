@@ -1,8 +1,9 @@
 import React from 'react';
+import './index.less';
 
 function RecordArea() {
     return (
-        <div>
+        <div styleName='container'>
             RecordArea
         </div>
     )
