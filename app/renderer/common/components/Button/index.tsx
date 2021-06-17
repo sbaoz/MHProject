@@ -53,8 +53,8 @@ function Button({ size = 'small', style, width, children, disabled, className, o
                 'es_button_disabled': disabled,
                 'es_button_border': border,
             })}
-            onClick={() => {
-                onClick && onClick();
+            onClick={(e) => {
+                onClick && onClick(e);
             }}
         >
             {children}

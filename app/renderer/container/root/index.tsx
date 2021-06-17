@@ -19,7 +19,7 @@ export default function Root() {
                 type: 'globalModel/setStore',
                 payload: {
                     key: 'currentPage',
-                    values: router.name,
+                    values: router.key,
                 },
             });
             history.push(router.url);

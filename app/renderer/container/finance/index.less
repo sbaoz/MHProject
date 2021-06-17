@@ -2,9 +2,19 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  background-color: #f8f8f8;
-  color: black;
-  padding: 15px;
+  //background-color: #f8f8f8;
+  //color: black;
+  //padding: 15px;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
+
+  & > div:nth-child(odd) {
+    margin-bottom: 15px;
+  }
+
+  .option-area {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
 }

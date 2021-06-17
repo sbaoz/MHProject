@@ -1,22 +1,82 @@
-import React, { useState, useRef } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import dayjs from 'dayjs';
+import classNames from 'classnames';
 import 'dayjs/locale/zh-cn';
 import './index.less';
 
 dayjs.locale('zh-cn');
 
-function Calendar() {
-    const curDate = useRef(dayjs().date(1));
-    const [monthYear, setMonthYear] = useState(curDate.current.format('MMM YYYY'));
+interface IProps {
+    style?: React.CSSProperties,
+    callback?: (day: any) => void
+}
+
+function Calendar({ style, callback }: IProps) {
+    const today = useRef(dayjs());
+    const curDate = useRef(today.current.date(1));
+    const calendarRef = useRef<React.LegacyRef<HTMLDivElement>>();
+    const next = useRef('');
+    const [selDay, setSelDay] = useState(today.current);
+    const [monthYear, setMonthYear] = useState<string>(curDate.current.format('MMM YYYY'));
+    const [monthCls, setMonthCls] = useState({
+        'month': true,
+        'new': true,
+        'month out next': false,
+        'month out prev': false,
+        'month in next': false,
+        'month in prev': false
+    });
+
+    const resetMonth = () => {
+        if (next.current === 'next' || next.current === 'prev') {
+            curDate.current = next.current === 'next' ? curDate.current.add(1, 'month') : curDate.current.subtract(1, 'month');
+            setMonthYear(curDate.current.format('MMM YYYY'));
+            const tmpNext = next.current;
+            next.current = '';
+            setMonthCls({
+                'month': true,
+                'new': !tmpNext,
+                'month out next': false,
+                'month out prev': false,
+                'month in next': tmpNext === 'next',
+                'month in prev': tmpNext === 'prev',
+            });
+        }
+    }
+
+    useEffect(() => {
+        if (calendarRef.current) {
+            calendarRef.current.addEventListener('animationend', resetMonth);
+        }
+        return () => {
+            if (calendarRef.current) {
+                calendarRef.current.removeEventListener('animationend', resetMonth);
+            }
+        }
+    }, []);
 
     const prevMonth = () => {
-        curDate.current = curDate.current.subtract(1, 'month');
-        setMonthYear(curDate.current.format('MMM YYYY'));
+        next.current = 'prev';
+        setMonthCls({
+            'month': false,
+            'new': false,
+            'month out next': false,
+            'month out prev': true,
+            'month in next': false,
+            'month in prev': false
+        });
     }
 
     const nextMonth = () => {
-        curDate.current = curDate.current.add(1, 'month');
-        setMonthYear(curDate.current.format('MMM YYYY'));
+        next.current = 'next';
+        setMonthCls({
+            'month': false,
+            'new': false,
+            'month out next': true,
+            'month out prev': false,
+            'month in next': false,
+            'month in prev': false
+        });
     }
 
     const renderHeader = () => {
@@ -86,19 +146,45 @@ function Calendar() {
         return weekMap;
     }
 
-    const renderDay = (days: any): React.ReactNode[] => {
-        const resule: React.ReactNode[] = [];
-        days.forEach((day: any, index: number) => {
+    const getDayClass = (day: any) => {
+        const classes = {
+            'day': true,
+            'other': day.month() !== curDate.current.month(),
+            'today': today.current.isSame(day, 'day'),
+            'select': selDay.isSame(day, 'day')
+        };
+        return classes;
+    }
 
+    const onClickDay = (day: any) => {
+        setSelDay(day);
+        callback && callback(day)
+    }
+
+    const renderDay = (days: any): React.ReactNode[] => {
+        const result: React.ReactNode[] = [];
+        let classes = {};
+        days.forEach((day: any, index: number) => {
+            classes = getDayClass(day);
+            result.push(
+                <div key={`day-${index}`} styleName={classNames(classes)} onClick={() => onClickDay(day)}>
+                    <div styleName='day-name'>
+                        {day.format('ddd')}
+                    </div>
+                    <div styleName='day-number'>
+                        {day.format('DD')}
+                    </div>
+                </div>
+            )
         })
-        return resule;
+        return result;
     }
 
     const renderWeek = (): React.ReactNode[] => {
         const week = getWeek();
-        const resule: React.ReactNode[] = [];
+        const result: React.ReactNode[] = [];
         week.forEach((days, key) => {
-            resule.push(
+            result.push(
                 <div styleName='week' key={`week-${key}`}>
                     {
                         renderDay(days)
@@ -106,12 +192,12 @@ function Calendar() {
                 </div>
             )
         });
-        return resule;
+        return result;
     }
 
     const renderMonth = () => {
         return (
-            <div styleName='month'>
+            <div styleName={classNames(monthCls)} ref={calendarRef}>
                 {
                     renderWeek()
                 }
@@ -120,7 +206,7 @@ function Calendar() {
     }
 
     return (
-        <div styleName='calendar'>
+        <div styleName='calendar' style={style}>
             {
                 renderHeader()
             }

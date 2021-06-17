@@ -1,15 +1,14 @@
 .calendar {
   transform: translate3d(0, 0, 0);
-  width: 420px;
+  width: 434px;
   margin: 0 auto;
-  height: 570px;
   overflow: hidden;
   color: rgba(255, 255, 255, 1);
 }
 
 .header {
   height: 50px;
-  width: 420px;
+  width: 434px;
   background: rgba(66, 66, 66, 1);
   text-align: center;
   position:relative;
@@ -82,24 +81,59 @@
   background: #4A4A4A;
 }
 
+.month.new {
+  animation: fadeIn 1s ease-out;
+  opacity: 1;
+}
+
+.month.in.next {
+  animation: moveFromTopFadeMonth .4s ease-out;
+  opacity: 1;
+}
+
+.month.out.next {
+  animation: moveToTopFadeMonth .4s ease-in;
+  opacity: 1;
+}
+
+.month.in.prev {
+  animation: moveFromBottomFadeMonth .4s ease-out;
+  opacity: 1;
+}
+
+.month.out.prev {
+  animation: moveToBottomFadeMonth .4s ease-in;
+  opacity: 1;
+}
+
 .day {
   display: inline-block;
-  width: 60px;
+  width: 62px;
+  height: 64px;
   padding: 10px;
+  border: 1px solid #4A4A4A;
   text-align: center;
   vertical-align: top;
   cursor: pointer;
   background: #4A4A4A;
   position: relative;
   z-index: 100;
-}
 
-.day.other {
-  color: rgba(255, 255, 255, .3);
-}
+  &:hover {
+    border: 1px solid rgb(235, 231, 21);
+  }
 
-.day.today {
-  color: rgba(156, 202, 235, 1);
+  &.other {
+    color: rgba(255, 255, 255, .3);
+  }
+
+  &.today {
+    color: rgba(156, 202, 235, 1);
+  }
+
+  &.select {
+    border: 1px solid rgb(235, 231, 21);
+  }
 }
 
 .day-name {
@@ -130,3 +164,12 @@
 @keyframes moveToBottomFadeMonth {
   to { opacity: 0; transform: translateY(30%); }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
