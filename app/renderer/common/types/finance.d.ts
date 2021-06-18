@@ -1,4 +1,19 @@
 declare namespace TSFinance {
+    enum CONSUM_TYPE {
+        Commodity = '日用品',
+        Food = '食品',
+        Drink = '饮料',
+        Clothing = '服装',
+        Electrical = '电器'
+    }
+    enum FINANC_TYPE {
+        Deposit = '存款',
+        EquityFund = '股票基金',
+        MoneyFund = '货币基金'
+    }
+    type ConsumType = keyof Record<CONSUM_TYPE, string>;
+    type FinancType = FINANC_TYPE;
+
     /**
      * @description 消费记录
      */
@@ -10,7 +25,7 @@ declare namespace TSFinance {
         /**
          * @description 消费品类
          */
-        consumType: string
+        consumType: ConsumType
         /**
          * @description 消费名称
          */
@@ -43,7 +58,7 @@ declare namespace TSFinance {
         /**
          * @description 理财品类
          */
-        financType: string
+        financType: FinancType
         /**
          * @description 产品名称
          */

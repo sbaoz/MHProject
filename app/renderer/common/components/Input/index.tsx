@@ -92,15 +92,14 @@ export default class Input extends React.PureComponent<InputProps, InputState> {
         }
     }
 
-    // static getDerivedStateFromProps(nextProps: InputProps, prevState: InputState) {
-    //     console.log('getDerivedStateFromProps', nextProps.value, prevState.text)
-    //     if (nextProps.value !== prevState.text) {
-    //         return {
-    //             text: nextProps.value
-    //         }
-    //     }
-    //     return null;
-    // }
+    static getDerivedStateFromProps(nextProps: InputProps, prevState: InputState) {
+        if (nextProps.value !== prevState.text) {
+            return {
+                text: nextProps.value
+            }
+        }
+        return null;
+    }
 
     componentDidMount(): void {
         if (this.props.value) {

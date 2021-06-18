@@ -4,7 +4,7 @@ import { getAppPath } from '@common/utils/appPath';
 import { BaseLayout, Calendar, Button, DialogModal } from '@common/components/index';
 import Messager, { MESSAGE_EVENT_NAME_MAPS } from '@common/messager';
 import RecordArea from '@src/container/finance/components/RecordArea';
-import OptionArea from "@src/container/finance/components/OptionArea";
+import OptionArea from '@src/container/finance/components/OptionArea';
 import './index.less';
 
 export default function Finance() {
@@ -46,9 +46,10 @@ export default function Finance() {
             <BaseLayout>
                 <div styleName='container'>
                     <div styleName='option-area'>
-                        <Calendar style={{ margin: 0 }} callback={onClickDay}/>
-                        <OptionArea />
-                        <OptionArea />
+                        <Calendar style={{ margin: 0, flex: 'none' }} callback={onClickDay}/>
+                        <OptionArea type='consumption' />
+                        <OptionArea type='financial' />
+                        {/*<OptionArea type='financial' />*/}
                         {/*<div onClick={() => onSendMessage('FinancialRecordOptionArea')}>*/}
                         {/*    <p>FinancialRecordOptionArea</p>*/}
                         {/*    <Button onClick={(e: React.MouseEvent) => {*/}

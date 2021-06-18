@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+
+  h1 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+  }
+
+  .one-row {
+    flex-flow: row nowrap;
+  }
+
+  .form-item {
+    display: flex;
+    flex-flow: row nowrap;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    label {
+      flex: none;
+      line-height: 34px;
+      width: 80px;
+    }
+  }
+}
