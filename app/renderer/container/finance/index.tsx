@@ -1,32 +1,86 @@
 import React, { useState, useEffect } from 'react';
+import dayjs from "dayjs";
 import fileAction from '@common/utils/file';
 import { getAppPath } from '@common/utils/appPath';
 import { BaseLayout, Calendar, Button, DialogModal } from '@common/components/index';
 import Messager, { MESSAGE_EVENT_NAME_MAPS } from '@common/messager';
 import RecordArea from '@src/container/finance/components/RecordArea';
 import OptionArea from '@src/container/finance/components/OptionArea';
+import useUpdateFinanceHook from "@src/container/finance/hooks/useUpdateFinanceHook";
 import './index.less';
 
 export default function Finance() {
     const [data, setData] = useState('');
     const [formName, setFormName] = useState('');
+    const [curConsumptionRecord, setCurConsumptionRecord] = useState(null);
+    const [curFinancialRecord, setCurFinancialRecord] = useState(null);
+    const updateFinance = useUpdateFinanceHook();
 
     const onClickDay = (day: any): void => {
         console.log('onClickDay', day.format('YYYY-MM-DD'));
+        updateFinance('curDate', day.format('YYYY-MM-DD'));
     }
 
-    const onSendMessage = (formName: string) => {
-        Messager.send(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, {
-            form_name: formName
+    const onUpdateConsumptionRecords = (formDate: any) => {
+        console.log('onSetConsumptionOption', formDate);
+        const {
+            id,
+            consumType,
+            consumName,
+            price,
+            channel,
+            payer,
+            remark
+        } = formDate;
+        updateFinance('consumptionRecords', {
+            id,
+            consumType,
+            consumName,
+            price,
+            channel,
+            payer,
+            remark
         });
     }
 
-    const onReceive = (e: any) => {
-        Messager.receive(e, (data: any) => {
-            console.log('发布订阅，传参值为: ', data);
-            setFormName(data.form_name);
+    const onUpdateFinancialRecords = (formDate: any) => {
+        console.log('onSetFinancialOption', formDate);
+        const {
+            id,
+            financType,
+            financName,
+            share,
+            unitPrice,
+            totalPrice,
+            channel,
+            payer,
+            remark
+        } = formDate;
+        updateFinance('financialRecords', {
+            id,
+            financType,
+            financName,
+            share,
+            unitPrice,
+            totalPrice,
+            channel,
+            payer,
+            remark
         });
     }
+
+    // const onSendMessage = (formName: string) => {
+    //     Messager.send(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, {
+    //         form_name: formName
+    //     });
+    // }
+    //
+    // const onReceive = (e: any) => {
+    //     Messager.receive(e, (data: any) => {
+    //         console.log('发布订阅，传参值为: ', data);
+    //         setFormName(data.form_name);
+    //     });
+    // }
 
     useEffect(() => {
         // getAppPath().then((rootPath: string) => {
@@ -35,9 +89,11 @@ export default function Finance() {
         //         setData(data);
         //     })
         // })
-        document.addEventListener(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, onReceive);
+        // document.addEventListener(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, onReceive);
+        updateFinance('curDate', dayjs().format('YYYY-MM-DD'));
+
         return () => {
-            document.removeEventListener(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, onReceive);
+            // document.removeEventListener(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, onReceive);
         }
     }, []);
 
@@ -47,9 +103,8 @@ export default function Finance() {
                 <div styleName='container'>
                     <div styleName='option-area'>
                         <Calendar style={{ margin: 0, flex: 'none' }} callback={onClickDay}/>
-                        <OptionArea type='consumption' />
-                        <OptionArea type='financial' />
-                        {/*<OptionArea type='financial' />*/}
+                        <OptionArea type='consumption' callback={onUpdateConsumptionRecords} record={curConsumptionRecord} />
+                        <OptionArea type='financial' callback={onUpdateFinancialRecords} record={curFinancialRecord} />
                         {/*<div onClick={() => onSendMessage('FinancialRecordOptionArea')}>*/}
                         {/*    <p>FinancialRecordOptionArea</p>*/}
                         {/*    <Button onClick={(e: React.MouseEvent) => {*/}

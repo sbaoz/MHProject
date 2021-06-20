@@ -18,14 +18,11 @@ declare namespace TSFinance {
      * @description 消费记录
      */
     export interface ConsumptionRecord {
-        /**
-         * @description 消费日期
-         */
-        consumDate: string | number
+        id: string
         /**
          * @description 消费品类
          */
-        consumType: ConsumType
+        consumType: ConsumType | ''
         /**
          * @description 消费名称
          */
@@ -51,14 +48,11 @@ declare namespace TSFinance {
      * @description 理财记录
      */
     export interface FinancialRecord {
-        /**
-         * @description 买入日期
-         */
-        financDate: string | number
+        id: string
         /**
          * @description 理财品类
          */
-        financType: FinancType
+        financType: FinancType | ''
         /**
          * @description 产品名称
          */
@@ -90,12 +84,10 @@ declare namespace TSFinance {
     }
 
     export interface DailyFinance {
-        date: string | number,
+        curDate: string | number,
+        curFinancialRecord: FinancialRecord,
+        curConsumptionRecord: ConsumptionRecord,
         consumptionRecords?: ConsumptionRecord[],
         financialRecords?: FinancialRecord[]
-    }
-
-    export interface FinanceRecord {
-        financeRecords: DailyFinance[]
     }
 }

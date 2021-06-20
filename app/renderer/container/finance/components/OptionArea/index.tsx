@@ -6,13 +6,15 @@ import './index.less';
 
 interface IProps {
     type: 'consumption' | 'financial'
+    record: any
+    callback: (formDate: any) => void
 }
 
-function OptionArea({ type }: IProps) {
+function OptionArea({ type, record, callback }: IProps) {
     let formRef = useRef();
 
     const onConfirm = () => {
-        console.log('formRef', formRef);
+        callback(formRef);
     }
 
     const onReset = () => {
@@ -24,8 +26,8 @@ function OptionArea({ type }: IProps) {
             <div styleName='content'>
                 {
                     type === 'consumption' ?
-                        <ConsumptionForm ref={ref => formRef = ref} /> :
-                        <FinancialForm ref={ref => formRef = ref} />
+                        <ConsumptionForm ref={ref => formRef = ref} record={record} /> :
+                        <FinancialForm ref={ref => formRef = ref} record={record} />
                 }
             </div>
             <div styleName='footer'>

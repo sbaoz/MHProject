@@ -1,14 +1,17 @@
 import React, { forwardRef, useImperativeHandle, useState} from 'react';
 import { Input } from '@common/components';
+import { createUID } from '@common/utils/index';
 import './index.less';
 
+
 const InternalForm = (props: any, ref: any) => {
-    const [consumType, setConsumType] = useState('');
-    const [consumName, setConsumName] = useState('');
-    const [price, setPrice] = useState('');
-    const [channel, setChannel] = useState('');
-    const [payer, setPayer] = useState('');
-    const [remark, setRemark] = useState('');
+    const { record } = props;
+    const [consumType, setConsumType] = useState(record && record.consumType || '');
+    const [consumName, setConsumName] = useState(record && record.consumName || '');
+    const [price, setPrice] = useState(record && record.price || '');
+    const [channel, setChannel] = useState(record && record.channel || '');
+    const [payer, setPayer] = useState(record && record.payer || '');
+    const [remark, setRemark] = useState(record && record.remark || '');
 
     const handleFormItemChange = (e: any, itemName: string) => {
         switch (itemName) {
@@ -34,6 +37,7 @@ const InternalForm = (props: any, ref: any) => {
     }
 
     useImperativeHandle(ref, () => ({
+        id: record && record.id || createUID(),
         consumType,
         consumName,
         price,
@@ -41,12 +45,15 @@ const InternalForm = (props: any, ref: any) => {
         payer,
         remark,
         reset: () => {
-            setConsumType('');
-            setConsumName('');
-            setPrice('');
-            setChannel('');
-            setPayer('');
-            setRemark('');
+            return new Promise((resolve, reject) => {
+                setConsumType('');
+                setConsumName('');
+                setPrice('');
+                setChannel('');
+                setPayer('');
+                setRemark('');
+                resolve('');
+            })
         }
     }), [
         consumType,
@@ -59,7 +66,7 @@ const InternalForm = (props: any, ref: any) => {
 
     return (
         <div styleName='container'>
-            <h1>新增消费记录</h1>
+            <h1>编辑消费记录</h1>
             <div styleName='form-item'>
                 <label htmlFor="consumType">消费品类：</label>
                 <Input

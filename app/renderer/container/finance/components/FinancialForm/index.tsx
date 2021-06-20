@@ -1,37 +1,92 @@
 import React, { forwardRef, useImperativeHandle, useState} from 'react';
 import { Input } from '@common/components';
 import './index.less';
+import {createUID} from "@common/utils";
 
 const InternalForm = (props: any, ref: any) => {
-    const [financName, setFinancName] = useState('');
+    const { record } = props;
+    const [financType, setFinancType] = useState(record && record.financType || '');
+    const [financName, setFinancName] = useState(record && record.financName || '');
+    const [share, setShare] = useState(record && record.share || '');
+    const [unitPrice, setUnitPrice] = useState(record && record.unitPrice || '');
+    const [totalPrice, setTotalPrice] = useState(record && record.totalPrice || '');
+    const [channel, setChannel] = useState(record && record.channel || '');
+    const [payer, setPayer] = useState(record && record.payer || '');
+    const [remark, setRemark] = useState(record && record.remark || '');
 
     const handleFormItemChange = (e: any, itemName: string) => {
         switch (itemName) {
+            case 'financType':
+                setFinancType(e.target.value);
+                break;
             case 'financName':
                 setFinancName(e.target.value);
+                break;
+            case 'share':
+                setShare(e.target.value);
+                break;
+            case 'unitPrice':
+                setUnitPrice(e.target.value);
+                break;
+            case 'totalPrice':
+                setTotalPrice(e.target.value);
+                break;
+            case 'channel':
+                setChannel(e.target.value);
+                break;
+            case 'payer':
+                setPayer(e.target.value);
+                break;
+            case 'remark':
+                setRemark(e.target.value);
                 break;
         }
     }
 
-    const reset = () => {
-        setFinancName('');
-    }
-
     useImperativeHandle(ref, () => ({
+        id: record && record.id || createUID(),
+        financType,
         financName,
-        reset
-    }))
+        share,
+        unitPrice,
+        totalPrice,
+        channel,
+        payer,
+        remark,
+        reset: () => {
+            return new Promise((resolve, reject) => {
+                setFinancType('');
+                setFinancName('');
+                setShare('');
+                setUnitPrice('');
+                setTotalPrice('');
+                setChannel('');
+                setPayer('');
+                setRemark('');
+                resolve('');
+            })
+        }
+    }), [
+        financType,
+        financName,
+        share,
+        unitPrice,
+        totalPrice,
+        channel,
+        payer,
+        remark,
+    ]);
 
     return (
         <div styleName='container'>
-            <h1>新增理财记录</h1>
+            <h1>编辑理财记录</h1>
             <div styleName='form-item'>
-                <label htmlFor="financName">理财品类：</label>
+                <label htmlFor="financType">理财品类：</label>
                 <Input
-                    id='financName'
+                    id='financType'
                     allowClear
-                    value={financName}
-                    onChange={(e) => handleFormItemChange(e, 'financName')}
+                    value={financType}
+                    onChange={(e) => handleFormItemChange(e, 'financType')}
                 />
             </div>
             <div styleName='form-item'>
@@ -45,62 +100,62 @@ const InternalForm = (props: any, ref: any) => {
             </div>
             <div styleName='one-row'>
                 <div styleName='form-item'>
-                    <label htmlFor="financName">买入份额：</label>
+                    <label htmlFor="share">买入份额：</label>
                     <Input
-                        id='financName'
+                        id='share'
                         allowClear
-                        value={financName}
-                        onChange={(e) => handleFormItemChange(e, 'financName')}
+                        value={share}
+                        onChange={(e) => handleFormItemChange(e, 'share')}
                     />
                 </div>
                 <div styleName='form-item'>
-                    <label htmlFor="financName">买入单价：</label>
+                    <label htmlFor="unitPrice">买入单价：</label>
                     <Input
-                        id='financName'
+                        id='unitPrice'
                         allowClear
-                        value={financName}
-                        onChange={(e) => handleFormItemChange(e, 'financName')}
+                        value={unitPrice}
+                        onChange={(e) => handleFormItemChange(e, 'unitPrice')}
                     />
                 </div>
             </div>
             <div styleName='one-row'>
                 <div styleName='form-item'>
-                    <label htmlFor="financName">买入渠道：</label>
+                    <label htmlFor="channel">买入渠道：</label>
                     <Input
-                        id='financName'
+                        id='channel'
                         allowClear
-                        value={financName}
-                        onChange={(e) => handleFormItemChange(e, 'financName')}
+                        value={channel}
+                        onChange={(e) => handleFormItemChange(e, 'channel')}
                     />
                 </div>
                 <div styleName='form-item'>
-                    <label htmlFor="financName">买入总价：</label>
+                    <label htmlFor="totalPrice">买入总价：</label>
                     <Input
-                        id='financName'
+                        id='totalPrice'
                         allowClear
-                        value={financName}
-                        onChange={(e) => handleFormItemChange(e, 'financName')}
+                        value={totalPrice}
+                        onChange={(e) => handleFormItemChange(e, 'totalPrice')}
                     />
                 </div>
             </div>
             <div styleName='form-item'>
-                <label htmlFor="financName">支付人：</label>
+                <label htmlFor="payer">支付人：</label>
                 <Input
-                    id='financName'
+                    id='payer'
                     allowClear
-                    value={financName}
-                    onChange={(e) => handleFormItemChange(e, 'financName')}
+                    value={payer}
+                    onChange={(e) => handleFormItemChange(e, 'payer')}
                 />
             </div>
             <div styleName='form-item'>
-                <label htmlFor="financName">备注：</label>
+                <label htmlFor="remark">备注：</label>
                 <Input
-                    id='financName'
+                    id='remark'
                     type='textarea'
                     maxLength={100}
-                    value={financName}
+                    value={remark}
                     allowClear
-                    onChange={(e) => handleFormItemChange(e, 'financName')}
+                    onChange={(e) => handleFormItemChange(e, 'remark')}
                 />
             </div>
         </div>
