@@ -90,7 +90,7 @@ export default function Finance() {
         //     })
         // })
         // document.addEventListener(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, onReceive);
-        updateFinance('curDate', dayjs().format('YYYY-MM-DD'));
+        useUpdateFinance('curDate', dayjs().format('YYYY-MM-DD'));
 
         return () => {
             // document.removeEventListener(MESSAGE_EVENT_NAME_MAPS.OPEN_FORM_MODAL, onReceive);
