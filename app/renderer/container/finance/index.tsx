@@ -14,11 +14,11 @@ export default function Finance() {
     const [formName, setFormName] = useState('');
     const [curConsumptionRecord, setCurConsumptionRecord] = useState(null);
     const [curFinancialRecord, setCurFinancialRecord] = useState(null);
-    const updateFinance = useUpdateFinanceHook();
+    const useUpdateFinance = useUpdateFinanceHook();
 
     const onClickDay = (day: any): void => {
         console.log('onClickDay', day.format('YYYY-MM-DD'));
-        updateFinance('curDate', day.format('YYYY-MM-DD'));
+        useUpdateFinance('curDate', day.format('YYYY-MM-DD'));
     }
 
     const onUpdateConsumptionRecords = (formDate: any) => {
@@ -32,7 +32,7 @@ export default function Finance() {
             payer,
             remark
         } = formDate;
-        updateFinance('consumptionRecords', {
+        useUpdateFinance('consumptionRecords', {
             id,
             consumType,
             consumName,
@@ -56,7 +56,7 @@ export default function Finance() {
             payer,
             remark
         } = formDate;
-        updateFinance('financialRecords', {
+        useUpdateFinance('financialRecords', {
             id,
             financType,
             financName,

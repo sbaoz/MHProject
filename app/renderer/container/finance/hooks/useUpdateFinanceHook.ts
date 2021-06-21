@@ -1,21 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 function useUpdateFinanceHook() {
-    const updateCurDate = useUpdateCurDateHook();
-    const updateConsumptionRecords = useUpdateConsumptionRecordsHook();
-    const updateFinancialRecords = useUpdateconFinancialRecordsHook();
+    const useUpdateCurDate = useUpdateCurDateHook();
+    const useUpdateConsumptionRecords = useUpdateConsumptionRecordsHook();
+    const useUpdateFinancialRecords = useUpdateconFinancialRecordsHook();
 
     return <T>(stateKey: string, stateValue: T) => {
         const keys = stateKey.split('/') || [];
         switch (keys[0]) {
             case 'curDate':
-                updateCurDate(keys[0], stateValue);
+                useUpdateCurDate(keys[0], stateValue);
                 break;
             case 'consumptionRecords':
-                updateConsumptionRecords(keys[0], stateValue);
+                useUpdateConsumptionRecords(keys[0], stateValue);
                 break;
             case 'financialRecords':
-                updateFinancialRecords(keys[0], stateValue);
+                useUpdateFinancialRecords(keys[0], stateValue);
                 break;
         }
     }
