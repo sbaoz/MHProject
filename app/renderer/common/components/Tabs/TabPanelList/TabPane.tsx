@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import classNames from 'classnames';
-import {act} from "react-dom/test-utils";
-import merge from "webpack-merge";
 
 export interface TabPaneProps {
     tab?: React.ReactNode;
@@ -17,18 +15,20 @@ export interface TabPaneProps {
     destroyInactiveTabPane?: boolean;
 }
 
-function TabPane({
-                     prefixCls,
-                     forceRender,
-                     className,
-                     style,
-                     id,
-                     active,
-                     animated,
-                     destroyInactiveTabPane,
-                     tabKey,
-                     children
-                 }: TabPaneProps) {
+function TabPane(
+    {
+        prefixCls,
+        forceRender,
+        className,
+        style,
+        id,
+        active,
+        animated,
+        destroyInactiveTabPane,
+        tabKey,
+        children
+    }: TabPaneProps
+) {
     const [visited, setVisited] = useState(forceRender);
 
     useEffect(() => {

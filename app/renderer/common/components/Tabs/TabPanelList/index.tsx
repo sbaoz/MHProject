@@ -10,12 +10,14 @@ export interface TabPanelListProps {
     destroyInactiveTabPane?: boolean;
 }
 
-function TabPanelList({
-    id,
-    activeKey,
-    animated,
-    destroyInactiveTabPane
-  }: TabPanelListProps) {
+function TabPanelList(
+    {
+        id,
+        activeKey,
+        animated,
+        destroyInactiveTabPane
+    }: TabPanelListProps
+) {
     const { prefixCls, tabs } = useContext(TabContext);
     const tabPaneAnimated = animated?.tabPane;
     const activeIndex = tabs.findIndex(tab => tab.key === activeKey);

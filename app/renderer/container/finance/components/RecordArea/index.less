@@ -3,3 +3,54 @@
   width: 100%;
   height: calc(100vh - 526px);
 }
+
+:global {
+  .record-tabs {
+    color: #fff;
+    height: 100%;
+
+    .record-nav {
+      background-color: #424242;
+
+      .record-nav-wrap {
+        .record-nav-list {
+          display: flex;
+          flex-flow: row nowrap;
+          .record-tab {
+            &-btn {
+              line-height: 30px;
+              min-width: 80px;
+              text-align: center;
+              cursor: pointer;
+
+              &:hover {
+                background-color: #85f419;
+                color: #000000;
+              }
+              &:focus {
+                outline: none;
+                background-color: #f4d52a;
+                color: #000000;
+              }
+            }
+            &-active {
+              background-color: #f4d52a;
+              color: #000000;
+            }
+          }
+        }
+      }
+    }
+
+    .record-content-holder {
+      .record-content {
+        .record-tabpane {
+
+        }
+        .record-tabpane-active:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
