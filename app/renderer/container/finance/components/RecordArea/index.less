@@ -10,32 +10,30 @@
     height: 100%;
 
     .record-nav {
-      background-color: #424242;
-
       .record-nav-wrap {
         .record-nav-list {
           display: flex;
           flex-flow: row nowrap;
+          background-color: #27292c;
+
           .record-tab {
+            background-color: #424242;
             &-btn {
-              line-height: 30px;
+              line-height: 35px;
               min-width: 80px;
               text-align: center;
               cursor: pointer;
+              transition: all 300ms ease-in-out;
 
-              &:hover {
-                background-color: #85f419;
-                color: #000000;
-              }
               &:focus {
                 outline: none;
-                background-color: #f4d52a;
-                color: #000000;
+                background-color: #4A4A4A;
               }
             }
             &-active {
-              background-color: #f4d52a;
-              color: #000000;
+              background-color: #4A4A4A;
+              transform: translateY(-5px);
+              box-shadow: 0 5px #4A4A4A;
             }
           }
         }
@@ -43,12 +41,13 @@
     }
 
     .record-content-holder {
+      padding: 10px;
       .record-content {
-        .record-tabpane {
-
-        }
-        .record-tabpane-active:focus {
-          outline: none;
+        .record-tabpane {}
+        .record-tabpane-active {
+          &:focus {
+            outline: none;
+          }
         }
       }
     }

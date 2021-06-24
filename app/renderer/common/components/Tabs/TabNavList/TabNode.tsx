@@ -27,7 +27,7 @@ function TabNode(
     ref: React.Ref<HTMLDivElement>
 ) {
     const tabPrefix = `${prefixCls}-tab`;
-    const nodeStyle: React.CSSProperties = { marginTop: tabBarGutter };
+    const nodeStyle: React.CSSProperties = { marginRight: tabBarGutter };
 
     function onInternalClick(e: React.MouseEvent) {
         onClick && onClick(e);

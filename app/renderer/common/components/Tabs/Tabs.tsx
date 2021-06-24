@@ -6,8 +6,8 @@ import TabContext from '@common/components/Tabs/TabContext';
 import TabNavList from '@common/components/Tabs/TabNavList';
 import TabPane from '@common/components/Tabs/TabPanelList/TabPane';
 import TabPanelList from '@common/components/Tabs/TabPanelList';
-import type {AnimatedConfig, Tab} from '@common/components/Tabs/interface';
-import type {TabPaneProps} from '@common/components/Tabs/TabPanelList/TabPane';
+import type { Tab } from '@common/components/Tabs/interface';
+import type { TabPaneProps } from '@common/components/Tabs/TabPanelList/TabPane';
 
 export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
     prefixCls?: string;
@@ -17,10 +17,8 @@ export interface TabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'o
     id?: string;
     activeKey?: string;
     defaultActiveKey?: string;
-    animated?: boolean | AnimatedConfig;
     tabBarGutter?: number;
     tabBarStyle?: React.CSSProperties;
-    destroyInactiveTabPane?: boolean;
     onChange?: (activeKey: string) => void;
     onTabClick?: (activeKey: string, e: React.KeyboardEvent | React.MouseEvent) => void;
 }
@@ -46,18 +44,13 @@ let uuid = 0;
 function Tabs(
     {
         id,
-        prefixCls = 'rc-tabs',
+        prefixCls = 'tabs',
         className,
         activeKey,
         defaultActiveKey,
         children,
-        animated = {
-            inkBar: true,
-            tabPane: false,
-        },
         tabBarGutter,
         tabBarStyle,
-        destroyInactiveTabPane,
         onChange,
         onTabClick,
         ...restProps
@@ -65,25 +58,6 @@ function Tabs(
     ref: React.Ref<HTMLDivElement>
     ) {
     const tabs = parseTabList(children);
-    let mergedAnimated: AnimatedConfig | false;
-    if (animated === false) {
-        mergedAnimated = {
-            inkBar: false,
-            tabPane: false,
-        };
-    } else if (animated === true) {
-        mergedAnimated = {
-            inkBar: true,
-            tabPane: true,
-        };
-    } else {
-        mergedAnimated = {
-            inkBar: true,
-            tabPane: false,
-            ...(typeof animated === 'object' ? animated : {}),
-        };
-    }
-
     const [mergedActiveKey, setMergedActiveKey] = useMergedState<string>(() => tabs[0]?.key, {
         value: activeKey,
         defaultValue: defaultActiveKey,
@@ -107,7 +81,7 @@ function Tabs(
 
     useEffect(() => {
         if (!id) {
-            setMergedId(`rc-tabs-${process.env.NODE_ENV === 'test' ? 'test' : uuid}`);
+            setMergedId(`tabs-${uuid}`);
             uuid += 1;
         }
     }, []);
@@ -121,8 +95,7 @@ function Tabs(
 
     const sharedProps = {
         id: mergedId,
-        activeKey: mergedActiveKey,
-        animated: mergedAnimated
+        activeKey: mergedActiveKey
     };
 
     const tabNavBarProps = {
@@ -132,8 +105,6 @@ function Tabs(
         style: tabBarStyle,
         panes: children,
     };
-
-    const tabNavBar: React.ReactElement = <TabNavList {...tabNavBarProps} />;
 
     return (
         <TabContext.Provider value={{ tabs, prefixCls }}>
@@ -146,11 +117,9 @@ function Tabs(
                 )}
                 {...restProps}
             >
-                {tabNavBar}
+                <TabNavList {...tabNavBarProps} />
                 <TabPanelList
-                    destroyInactiveTabPane={destroyInactiveTabPane}
                     {...sharedProps}
-                    animated={mergedAnimated}
                 />
             </div>
         </TabContext.Provider>

@@ -6,11 +6,9 @@ export interface TabPaneProps {
     className?: string;
     style?: React.CSSProperties;
     children?: React.ReactNode;
-    forceRender?: boolean;
     prefixCls?: string;
     tabKey?: string;
     id?: string;
-    animated?: boolean;
     active?: boolean;
     destroyInactiveTabPane?: boolean;
 }
@@ -18,36 +16,25 @@ export interface TabPaneProps {
 function TabPane(
     {
         prefixCls,
-        forceRender,
         className,
         style,
         id,
         active,
-        animated,
-        destroyInactiveTabPane,
         tabKey,
         children
     }: TabPaneProps
 ) {
-    const [visited, setVisited] = useState(forceRender);
+    const [visited, setVisited] = useState(false);
 
     useEffect(() => {
         if (active) {
             setVisited(true);
-        } else if (destroyInactiveTabPane) {
-            setVisited(false)
         }
-    }, [active, destroyInactiveTabPane]);
+    }, [active]);
 
     const mergedStyle: React.CSSProperties = {};
     if (!active) {
-        if (animated) {
-            mergedStyle.visibility = 'hidden';
-            mergedStyle.height = 0;
-            mergedStyle.overflowY = 'hidden';
-        } else {
-            mergedStyle.display = 'none';
-        }
+        mergedStyle.display = 'none';
     }
 
     return (
@@ -61,7 +48,7 @@ function TabPane(
                 className
             )}
         >
-            {(active || visited || forceRender) && children}
+            {(active || visited) && children}
         </div>
     )
 }

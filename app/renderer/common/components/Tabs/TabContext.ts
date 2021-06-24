@@ -6,4 +6,7 @@ export interface TabContextProps {
     prefixCls: string
 }
 
-export default createContext<TabContextProps | null>(null);
+export default createContext<TabContextProps>({
+    tabs: [],
+    prefixCls: ''
+});

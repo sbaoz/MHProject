@@ -9,7 +9,7 @@ interface IProps {
     /**
      * @description 最大高度，默认200
      */
-    maxHeight?: number;
+    maxHeight?: number | string;
     /**
      * @description 根div样式
      */
@@ -32,12 +32,12 @@ function ScrollBox({ children, maxHeight = 200, style = {}, innerStyle= {}, onSc
 
     let _style = {...style};
     if (maxHeight) {
-        _style = {..._style, maxHeight: `${maxHeight}px`};
+        _style = {..._style, maxHeight: typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight};
     }
 
     return (
         <div className='scroll-box-outer' style={_style} onScroll={onScroll}>
-            <div className="scroll-box-hidden" style={{ maxHeight: `${maxHeight}px` }}>
+            <div className="scroll-box-hidden" style={{ maxHeight: typeof maxHeight === 'number' ? `${maxHeight}px` : maxHeight }}>
                 <div className="scroll-box-inter" style={innerStyle}>
                     {children}
                 </div>

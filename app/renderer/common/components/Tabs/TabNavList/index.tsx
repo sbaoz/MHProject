@@ -2,14 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
 import TabContext from '@common/components/Tabs/TabContext';
 import TabNode from '@common/components/Tabs/TabNavList/TabNode';
-import {AnimatedConfig} from '@common/components/Tabs/interface';
 import useRefs from '@common/components/Tabs/hooks/useRefs';
 
 export interface TabNavListProps {
     id: string;
     activeKey: string;
     panes: React.ReactNode;
-    animated?: AnimatedConfig;
     tabBarGutter?: number;
     className?: string;
     style?: React.CSSProperties;
@@ -23,7 +21,6 @@ function TabNavList(props: TabNavListProps, ref: React.Ref<HTMLDivElement>) {
         className,
         style,
         id,
-        animated,
         activeKey,
         tabBarGutter,
         children,

@@ -5,6 +5,7 @@ import { DialogModal, ConfirmModal } from '@common/components/Modal/index';
 import ScrollBox from '@common/components/ScrollBox';
 import BaseLayout from '@common/components/Layout/BaseLayout';
 import Calendar from '@common/components/Calendar';
+import Tabs from '@common/components/Tabs/Tabs';
 
 export {
     Button,
@@ -14,6 +15,7 @@ export {
     ConfirmModal,
     ScrollBox,
     BaseLayout,
-    Calendar
+    Calendar,
+    Tabs
 }
 

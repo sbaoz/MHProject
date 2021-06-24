@@ -1,7 +1,9 @@
 import React from 'react';
-import Tabs, { TabPane } from '@common/components/Tabs';
 import classNames from 'classnames';
+import { Tabs, ScrollBox } from '@common/components';
 import './index.less';
+
+const { TabPane } = Tabs;
 
 function RecordArea() {
     const callback = (activeKey: string) => {
@@ -12,17 +14,18 @@ function RecordArea() {
         <div styleName='container'>
             <Tabs
                 prefixCls={'record'}
-                defaultActiveKey="2"
+                defaultActiveKey="1"
+                tabBarGutter={3}
                 onChange={callback}
             >
-                <TabPane tab="tab 1" key="1">
-                    first
+                <TabPane tab="记录列表" key="1">
+                    <ScrollBox
+                        maxHeight='calc(100vh - 585px)'
+                    >
+                    </ScrollBox>
                 </TabPane>
-                <TabPane tab="tab 2" key="2">
+                <TabPane tab="分析报表" key="2">
                     second
-                </TabPane>
-                <TabPane tab="tab 3" key="3">
-                    third
                 </TabPane>
             </Tabs>
         </div>
