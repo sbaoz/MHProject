@@ -17,5 +17,5 @@ export {
     BaseLayout,
     Calendar,
     Tabs
-}
+};
 

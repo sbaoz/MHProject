@@ -1,8 +1,10 @@
 import React, { forwardRef, useImperativeHandle, useState} from 'react';
+import { Select } from 'antd';
 import { Input } from '@common/components';
 import { createUID } from '@common/utils/index';
-import './index.less';
+import styles from './index.less';
 
+const { Option } = Select;
 
 const InternalForm = (props: any, ref: any) => {
     const { record } = props;
@@ -13,25 +15,25 @@ const InternalForm = (props: any, ref: any) => {
     const [payer, setPayer] = useState(record && record.payer || '');
     const [remark, setRemark] = useState(record && record.remark || '');
 
-    const handleFormItemChange = (e: any, itemName: string) => {
+    const handleFormItemChange = (value: any, itemName: string) => {
         switch (itemName) {
             case 'consumType':
-                setConsumType(e.target.value);
+                setConsumType(value);
                 break;
             case 'consumName':
-                setConsumName(e.target.value);
+                setConsumName(value);
                 break;
             case 'price':
-                setPrice(e.target.value);
+                setPrice(value);
                 break;
             case 'channel':
-                setChannel(e.target.value);
+                setChannel(value);
                 break;
             case 'payer':
-                setPayer(e.target.value);
+                setPayer(value);
                 break;
             case 'remark':
-                setRemark(e.target.value);
+                setRemark(value);
                 break;
         }
     }
@@ -69,12 +71,14 @@ const InternalForm = (props: any, ref: any) => {
             <h1>编辑消费记录</h1>
             <div styleName='form-item'>
                 <label htmlFor="consumType">消费品类：</label>
-                <Input
-                    id='consumType'
+                <Select
+                    className={styles.select}
                     value={consumType}
-                    allowClear
-                    onChange={(e) => handleFormItemChange(e, 'consumType')}
-                />
+                    onChange={(value) => handleFormItemChange(value, 'consumType')}
+                >
+                    <Option key="option_1" value="111" selected>aaa</Option>
+                    <Option key="option_2" value="222">bbb</Option>
+                </Select>
             </div>
             <div styleName='form-item'>
                 <label htmlFor="consumName">消费名称：</label>
@@ -82,7 +86,7 @@ const InternalForm = (props: any, ref: any) => {
                     id='consumName'
                     value={consumName}
                     allowClear
-                    onChange={(e) => handleFormItemChange(e, 'consumName')}
+                    onChange={(e) => handleFormItemChange(e.target.value, 'consumName')}
                 />
             </div>
             <div styleName='form-item'>
@@ -91,7 +95,7 @@ const InternalForm = (props: any, ref: any) => {
                     id='price'
                     value={price}
                     allowClear
-                    onChange={(e) => handleFormItemChange(e, 'price')}
+                    onChange={(e) => handleFormItemChange(e.target.value, 'price')}
                 />
             </div>
             <div styleName='form-item'>
@@ -100,7 +104,7 @@ const InternalForm = (props: any, ref: any) => {
                     id='channel'
                     value={channel}
                     allowClear
-                    onChange={(e) => handleFormItemChange(e, 'channel')}
+                    onChange={(e) => handleFormItemChange(e.target.value, 'channel')}
                 />
             </div>
             <div styleName='form-item'>
@@ -109,7 +113,7 @@ const InternalForm = (props: any, ref: any) => {
                     id='payer'
                     value={payer}
                     allowClear
-                    onChange={(e) => handleFormItemChange(e, 'payer')}
+                    onChange={(e) => handleFormItemChange(e.target.value, 'payer')}
                 />
             </div>
             <div styleName='form-item'>
@@ -120,7 +124,7 @@ const InternalForm = (props: any, ref: any) => {
                     maxLength={100}
                     value={remark}
                     allowClear
-                    onChange={(e) => handleFormItemChange(e, 'remark')}
+                    onChange={(e) => handleFormItemChange(e.target.value, 'remark')}
                 />
             </div>
         </div>
