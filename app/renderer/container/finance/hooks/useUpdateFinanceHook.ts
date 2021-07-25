@@ -38,14 +38,10 @@ function useUpdateConsumptionRecordsHook() {
     const dispatch = useDispatch();
     let consumptionRecords = useSelector((state: any) => state.financeModel.consumptionRecords);
     return <T>(stateKey: string, stateValue: T) => {
-        const exitedRecord = consumptionRecords.find((item: any) => item.id === stateValue.id);
-        if (exitedRecord) {
-            exitedRecord.consumType = stateValue.consumType;
-            exitedRecord.consumName = stateValue.consumName;
-            exitedRecord.price = stateValue.price;
-            exitedRecord.channel = stateValue.channel;
-            exitedRecord.payer = stateValue.payer;
-            exitedRecord.remark = stateValue.remark;
+        const index = consumptionRecords.findIndex((item: any) => item.id === stateValue.id);
+        if (index !== -1) {
+            consumptionRecords = consumptionRecords.asMutable();
+            consumptionRecords.splice(index, 1, stateValue);
         } else {
             consumptionRecords = [...consumptionRecords, stateValue];
         }

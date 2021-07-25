@@ -11,6 +11,7 @@ interface IProps {
 }
 
 function OptionArea({ type, record, callback }: IProps) {
+    console.log('OptionArea', record);
     let formRef = useRef();
 
     const onConfirm = () => {

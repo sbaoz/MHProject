@@ -19,7 +19,7 @@ export default function Root() {
                 type: 'globalModel/setStore',
                 payload: {
                     key: 'currentPage',
-                    values: router.key,
+                    values: router.name,
                 },
             });
             history.push(router.url);
@@ -33,7 +33,7 @@ export default function Root() {
                     {
                         ROUTER_ENTRY.map(item => (
                             <p styleName='title' key={item.key} onClick={() => onRouterToLink(item)}>
-                                {item.text}
+                                {item.name}
                             </p>
                         ))
                     }

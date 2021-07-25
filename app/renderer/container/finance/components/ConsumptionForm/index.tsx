@@ -1,7 +1,8 @@
-import React, { forwardRef, useImperativeHandle, useState} from 'react';
+import React, {forwardRef, useEffect, useImperativeHandle, useState} from 'react';
 import { Select } from 'antd';
 import { Input } from '@common/components';
 import { createUID } from '@common/utils/index';
+import { CONSUM_TYPE } from '@common/constants/finance';
 import styles from './index.less';
 
 const { Option } = Select;
@@ -14,6 +15,16 @@ const InternalForm = (props: any, ref: any) => {
     const [channel, setChannel] = useState(record && record.channel || '');
     const [payer, setPayer] = useState(record && record.payer || '');
     const [remark, setRemark] = useState(record && record.remark || '');
+
+    useEffect(() => {
+        setConsumType(record && record.consumType || '');
+        setConsumName(record && record.consumName || '');
+        setPrice(record && record.price || '');
+        setChannel(record && record.channel || '');
+        setPayer(record && record.payer || '');
+        setRemark(record && record.remark || '');
+
+    }, [record]);
 
     const handleFormItemChange = (value: any, itemName: string) => {
         switch (itemName) {
@@ -76,8 +87,13 @@ const InternalForm = (props: any, ref: any) => {
                     value={consumType}
                     onChange={(value) => handleFormItemChange(value, 'consumType')}
                 >
-                    <Option key="option_1" value="111" selected>aaa</Option>
-                    <Option key="option_2" value="222">bbb</Option>
+                    {
+                        Object.keys(CONSUM_TYPE).map(key => {
+                            return (
+                                <Option key={key} value={key}>{CONSUM_TYPE[key]}</Option>
+                            )
+                        })
+                    }
                 </Select>
             </div>
             <div styleName='form-item'>

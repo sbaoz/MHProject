@@ -11,8 +11,8 @@ declare namespace TSFinance {
         EquityFund = '股票基金',
         MoneyFund = '货币基金'
     }
-    type ConsumType = keyof Record<CONSUM_TYPE, string>;
-    type FinancType = FINANC_TYPE;
+    export type ConsumType = keyof Record<CONSUM_TYPE, string>;
+    export type FinancType = FINANC_TYPE;
 
     /**
      * @description 消费记录

@@ -7,7 +7,7 @@ function isDev() {
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1200,
-        height: 800,
+        height: 1255,
         webPreferences: {
             devTools: true,
             webSecurity: true,

@@ -1,7 +1,11 @@
 import React, { forwardRef, useImperativeHandle, useState} from 'react';
+import { Select } from 'antd';
 import { Input } from '@common/components';
-import './index.less';
-import {createUID} from "@common/utils";
+import { createUID } from "@common/utils";
+import { FINANC_TYPE } from '@common/constants/finance';
+import styles from './index.less';
+
+const { Option } = Select;
 
 const InternalForm = (props: any, ref: any) => {
     const { record } = props;
@@ -14,31 +18,31 @@ const InternalForm = (props: any, ref: any) => {
     const [payer, setPayer] = useState(record && record.payer || '');
     const [remark, setRemark] = useState(record && record.remark || '');
 
-    const handleFormItemChange = (e: any, itemName: string) => {
+    const handleFormItemChange = (value: any, itemName: string) => {
         switch (itemName) {
             case 'financType':
-                setFinancType(e.target.value);
+                setFinancType(value);
                 break;
             case 'financName':
-                setFinancName(e.target.value);
+                setFinancName(value);
                 break;
             case 'share':
-                setShare(e.target.value);
+                setShare(value);
                 break;
             case 'unitPrice':
-                setUnitPrice(e.target.value);
+                setUnitPrice(value);
                 break;
             case 'totalPrice':
-                setTotalPrice(e.target.value);
+                setTotalPrice(value);
                 break;
             case 'channel':
-                setChannel(e.target.value);
+                setChannel(value);
                 break;
             case 'payer':
-                setPayer(e.target.value);
+                setPayer(value);
                 break;
             case 'remark':
-                setRemark(e.target.value);
+                setRemark(value);
                 break;
         }
     }
@@ -82,12 +86,19 @@ const InternalForm = (props: any, ref: any) => {
             <h1>编辑理财记录</h1>
             <div styleName='form-item'>
                 <label htmlFor="financType">理财品类：</label>
-                <Input
-                    id='financType'
-                    allowClear
+                <Select
+                    className={styles.select}
                     value={financType}
-                    onChange={(e) => handleFormItemChange(e, 'financType')}
-                />
+                    onChange={(value) => handleFormItemChange(value, 'financType')}
+                >
+                    {
+                        Object.keys(FINANC_TYPE).map(key => {
+                            return (
+                                <Option key={key} value={key}>{FINANC_TYPE[key]}</Option>
+                            )
+                        })
+                    }
+                </Select>
             </div>
             <div styleName='form-item'>
                 <label htmlFor="financName">产品名称：</label>
@@ -95,7 +106,7 @@ const InternalForm = (props: any, ref: any) => {
                     id='financName'
                     allowClear
                     value={financName}
-                    onChange={(e) => handleFormItemChange(e, 'financName')}
+                    onChange={(e) => handleFormItemChange(e.target.value, 'financName')}
                 />
             </div>
             <div styleName='one-row'>
@@ -105,7 +116,7 @@ const InternalForm = (props: any, ref: any) => {
                         id='share'
                         allowClear
                         value={share}
-                        onChange={(e) => handleFormItemChange(e, 'share')}
+                        onChange={(e) => handleFormItemChange(e.target.value, 'share')}
                     />
                 </div>
                 <div styleName='form-item'>
@@ -114,7 +125,7 @@ const InternalForm = (props: any, ref: any) => {
                         id='unitPrice'
                         allowClear
                         value={unitPrice}
-                        onChange={(e) => handleFormItemChange(e, 'unitPrice')}
+                        onChange={(e) => handleFormItemChange(e.target.value, 'unitPrice')}
                     />
                 </div>
             </div>
@@ -125,7 +136,7 @@ const InternalForm = (props: any, ref: any) => {
                         id='channel'
                         allowClear
                         value={channel}
-                        onChange={(e) => handleFormItemChange(e, 'channel')}
+                        onChange={(e) => handleFormItemChange(e.target.value, 'channel')}
                     />
                 </div>
                 <div styleName='form-item'>
@@ -134,7 +145,7 @@ const InternalForm = (props: any, ref: any) => {
                         id='totalPrice'
                         allowClear
                         value={totalPrice}
-                        onChange={(e) => handleFormItemChange(e, 'totalPrice')}
+                        onChange={(e) => handleFormItemChange(e.target.value, 'totalPrice')}
                     />
                 </div>
             </div>
@@ -144,7 +155,7 @@ const InternalForm = (props: any, ref: any) => {
                     id='payer'
                     allowClear
                     value={payer}
-                    onChange={(e) => handleFormItemChange(e, 'payer')}
+                    onChange={(e) => handleFormItemChange(e.target.value, 'payer')}
                 />
             </div>
             <div styleName='form-item'>
@@ -155,7 +166,7 @@ const InternalForm = (props: any, ref: any) => {
                     maxLength={100}
                     value={remark}
                     allowClear
-                    onChange={(e) => handleFormItemChange(e, 'remark')}
+                    onChange={(e) => handleFormItemChange(e.target.value, 'remark')}
                 />
             </div>
         </div>
